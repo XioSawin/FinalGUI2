@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Bienvenido";
+}
+
+<!--Carousel-->
+<div id="my-carousel" class="carousel slide" data-ride="carousel">
+    <!--Indicadores-->
+    <ol class="carousel-indicators">
+        <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#my-carousel" data-slide-to="1"></li>
+    </ol>
+
+    <!--slides-->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/Content/Images/108-cebra-pawpatrol-1920x500-01.jpg" alt="Paw Patrol" width="100%" height="100%" />
+        </div>
+        <div class="item">
+            <img src="~/Content/Images/park-troopers-RAtKWVlfdf4-unsplash.jpg" alt="Promo" width="100%" height="100%" />
+
+        </div>
+    </div>
+    <!--Left and right controls -->
+    <a class="left carousel-control" href="#my-carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#my-carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+    </a>
+</div>
+<hr />
+<div class="row text-center">
+    <div class="col-sm-5">
+        <div class="thumbnail">
+            <img src="~/Content/Images/susan-holt-simpson-H7SCRwU1aiM-unsplash.jpg" alt="productos" width="400" height="300" />
+            <p><strong>@Html.ActionLink("Nuestros Productos", "Products", "Productos")</strong></p>
+        </div>
+    </div>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-5">
+        <div class="thumbnail">
+            <img src="~/Content/Images/tyler-nix-V3dHmb1MOXM-unsplash.jpg" alt="Pagos" width="400" height="300" />
+            <p><strong>@Html.ActionLink("Nuestra Historia", "Products", "Productos")</strong></p>
+        </div>
+    </div>
+</div>
+
+

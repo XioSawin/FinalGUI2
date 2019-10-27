@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Mvc6.Models.Categoria>
+@{
+    ViewBag.Title = "Tienda";
+}
+
+<h2>Buscar por Categoría</h2>
+<p> Seleccione entre @Model.Count() categorías diferentes:</p>
+<ul>
+    @foreach(var categ in Model)
+    {
+        <li>@Html.ActionLink(categ.Nombre, "Browse", new { categ = categ.Nombre})</li>
+    }
+</ul>

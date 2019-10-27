@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Mvc6.Models.Producto>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">x</span><span class="sr-only">Cerrar</span>
+            </button>
+            <h4 class="modal-title" id="myModalLable">
+                Su carro de compras
+            </h4>
+        </div>
+        <div class="modal-body">
+            <table id="cartList">
+                <thead>
+                    <tr>
+                        <td><b>Imagen</b></td>
+                        <td><b>Nombre</b></td>
+                        <td><b>Precio</b></td>
+                        <td><b></b></td>
+                    </tr>
+                </thead><tbody>
+                    @foreach(var objItem in Model)
+                    {
+                        <tr id="@objItem.ProductID">
+                            <td>
+
+                            </td>
+                            <td>
+                                @objItem.ProductName
+                            </td>
+                            <td>
+                                @objItem.Precio
+                            </td>
+                            <td>
+                                <span class="cartDel">Eliminar</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <span class="totalPrice">Total @ViewBag.Total</span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                Cerrar
+            </button>
+            <button type="button" class="btn btn-primary">
+                Proseguir
+            </button>
+        </div>
+    </div>
+</div>

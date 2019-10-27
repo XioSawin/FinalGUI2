@@ -1,0 +1,55 @@
+﻿@model Mvc6.Models.Orden
+@{
+    ViewBag.Title = "Dirección de entrega y pago";
+}
+
+@using (Html.BeginForm("AddressAndPayment", "Checkout", FormMethod.Post))
+{
+    <div class="col-md-8 order-md-1">
+        <div class="form-group">
+            @Html.HiddenFor(model => model.OrderId)
+            <div class="mb-3">
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Username, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.Username)
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Direccion, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.Direccion)
+                @Html.ValidationMessageFor(model => model.Direccion)
+            </div>
+
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Ciudad, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.Ciudad)
+                @Html.ValidationMessageFor(model => model.Ciudad)
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Phone, new { @class = "control-label col-sm-2" })
+                @Html.EditorFor(model => model.Phone)
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+            <hr class="divider" />
+            <input type="submit" value="Confirmar Pedido" />
+        </div>
+    </div>
+
+}

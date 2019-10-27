@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Mi carrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h2>Mi Carrito</h2>
+
+<table id="productosTable" class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th style="width:72%">Producto</th>
+            <th style="width:10%">Precio x unidad</th>
+            <th style="width:8%">Cantidad</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        var Popup, dataTable;
+
+        $(document).ready(function () {
+
+            dataTable = $("#productosTable").DataTable({
+                "ajax": {
+                    "url": "/Cart/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "productName" },
+                    { "data": "precioProd" },
+                    { "data": "cantidad" },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Borrar</a>";
+                        },
+                        "orderable": false,
+                        "width": "150px"
+                    }
+                ],
+                "language": {
+                    "emptyTable": "No se encontraron registros."
+                }
+            });
+
+        });
+        
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message,{
+                                globalPosition : "top center",
+                                className : "success"
+                            })
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function Delete(id) {
+            if (confirm('¿Está seguro que quiere eliminar este item?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","Carrito")/' + id,
+                    success: function (data) {
+                        if (data.success) {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+                        }
+                    }
+                });
+
+            }
+        }
+
+    </script>
+}

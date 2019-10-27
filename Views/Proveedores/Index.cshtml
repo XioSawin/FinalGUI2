@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de proveedores</h2>
+
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEdit", "Proveedores")')"><i class="fa fa-plus"></i> Agregar proveedor</a>
+<table id="proveedoresTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Direccion</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        var Popup, dataTable;
+
+        $(document).ready(function () {
+
+            dataTable = $("#proveedoresTable").DataTable({
+                "ajax": {
+                    "url": "/Proveedores/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "ProviderName" },
+                    { "data": "Telefono" },
+                    { "data": "Email" },
+                    { "data": "Direccion" },
+                    {
+                        "data": "ProviderID", "render": function (data) {
+                            return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEdit","Proveedores")/" + data + "')><i class='fa fa-pencil'></i> Editar</a><a class='btn btn-danger btn-sm' style='margin-left:5px' onclick=Delete("+data+")><i class='fa fa-trash'></i> Borrar</a>";
+                        },
+                        "orderable": false,
+                        "width": "150px"
+                    }
+                ],
+                "language": {
+                    "emptyTable": "No se encontraron registros, Por favor haga click en el botón <b>Agregar proveedor</b>"
+                }
+            });
+
+        });
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Completar datos proveedor',
+                    height: 500,
+                    width: 700,
+                    close: function(){
+                        Popup.dialog('destroy').remove();
+                    }
+                });
+            });
+        }
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message,{
+                                globalPosition : "top center",
+                                className : "success"
+                            })
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function Delete(id) {
+            if (confirm('¿Está seguro que quiere eliminar este proveedor?'))
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Delete","Proveedores")/' + id,
+                    success: function (data) {
+                        if (data.success) {
+                            dataTable.ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            })
+                        }
+                    }
+                });
+
+            }
+        }
+
+    </script>
+}

@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Mvc6.Models.Categoria>
+
+<ul id="categories">
+    @foreach(var category in Model)
+    {
+        <li>
+            @Html.ActionLink(category.Nombre, "Browse", "Store", new { Categoria = category.Nombre}, null)
+        </li>
+    }
+</ul>

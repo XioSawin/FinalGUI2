@@ -1,0 +1,27 @@
+﻿@model Mvc6.Models.Producto
+
+@{
+    ViewBag.Title = Model.ProductName;
+}
+
+<div class="container">
+    <h1 class="my-4">
+        @Model.ProductName
+        <small>$<em>@Model.Precio</em></small>
+    </h1>
+    <hr class="featurette-divider" />
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <img src="~/Content/Images/@Model.ProductImg" style="width:100%"/>
+        </div>
+        <div class="col-md-6 mb-4">
+            <h3 class="my-3">Descripción</h3>
+            <p>@Model.ProductDescription</p>
+            <hr class="divider" />
+            <p class="btn btn-primary" style="color:white;">
+                @Html.ActionLink("Añadir a la cesta", "AddToCart", "Carrito", new { id = Model.ProductID }, "")
+            </p>
+        </div>
+    </div>
+</div>
+

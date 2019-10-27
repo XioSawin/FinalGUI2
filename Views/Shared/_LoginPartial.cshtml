@@ -1,0 +1,18 @@
+﻿@if ((Session["userID"] == null))
+{
+    <ul>
+        <li>@Html.ActionLink("Registrarse", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Iniciar sesión", "Index", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+else
+{
+    <text>
+    ¡Hola @Session["userID"].ToString()!
+    @using (Html.BeginForm("LogOff", "Users", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a>
+        }
+    </text>
+
+}

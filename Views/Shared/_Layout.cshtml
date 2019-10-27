@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title - ToysRYours! </title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left" style="color:white;">
+                <p class="site-title" style="color:white;">@Html.ActionLink("ToysRYours!", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+
+
+                        @if (Session["userRole"] == null)
+                        {
+
+                        }
+                        else if ((Session["userRole"].ToString() != "Administrador"))
+                        {
+                            <li>@Html.ActionLink("Productos", "Products", "Productos")</li>
+                            <li>@{Html.RenderAction("CartSummary", "Carrito");}</li>
+                        }
+                        else if ((Session["userRole"].ToString() == "Administrador"))
+                        {
+                            <li>@Html.ActionLink("Usuarios", "Index", "Users") </li>
+                            <li>@Html.ActionLink("Proveedores", "Index", "Proveedores") </li>
+                            <li>@Html.ActionLink("Stock", "Index", "Productos") </li>
+                            <li>@Html.ActionLink("Pedidos", "Index", "Orden") </li>
+                            //<li class="nav-item">@{Html.RenderAction("CartSummary", "Carrito");}</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper" >
+            <div class="float-right">
+                <p>Proyecto GUI 2 - UCES 1° Cuatrimestre - @DateTime.Now.Year</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

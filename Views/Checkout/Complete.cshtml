@@ -1,0 +1,10 @@
+﻿@model Mvc6.Models.Orden
+@{
+    ViewBag.Title = "Checkout Completado";
+}
+
+<h2>Checkout completado</h2>
+<h3>¡Gracias por su pedido! Su número de orden es: <strong>@Model.OrderId</strong></h3>
+<p>Será entregado en <em>@Model.Direccion</em> a <em>@Model.FirstName @Model.LastName</em></p>
+<hr class="divider"/>
+<p>Si quiere continuar comprando en nuestra tienda, haga click @Html.ActionLink("aquí.", "Index", "Home")</p>

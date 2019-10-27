@@ -1,0 +1,22 @@
+﻿@model Mvc6.Models.Categoria
+@{
+    ViewBag.Title = "Buscar por Categoría";
+}
+
+<div>
+    <h3>
+        <em>@Model.Nombre</em>
+    </h3>
+
+    <ul>
+        @foreach(var producto in Model.Productos)
+        {
+            <li>
+                <a href="@Url.Action("Details", new { id=producto.ProductID})">
+                    <img alt="@producto.ProductName" src="@producto.ProductImg"/>
+                    <span>@producto.ProductName</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

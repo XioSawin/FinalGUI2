@@ -1,0 +1,49 @@
+﻿@model Mvc6.Models.Orden
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEdit", "Orden", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.OrderId)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.Username)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.Phone)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Direccion, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.Direccion)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ciudad, new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.Ciudad, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+        @Html.ValidationMessageFor(model => model.Ciudad)
+    </div>
+        @Html.HiddenFor(model => model.Total)
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="reset" value="Limpiar" class="btn btn-warning" style="width:80px" />
+    </div>
+}
